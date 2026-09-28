@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Beauty Shop — curadoria de beleza, ofertas, cupons, novidades e achados selecionados.">
+  <title>Beauty Shop | Curadoria de Beleza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Beauty Shop">
+      <span class="brand-mark">BEAUTY</span>
+      <span class="brand-sub">SHOP · CURADORIA DE BELEZA</span>
+    </a>
+    <nav class="top-nav">
+      <a href="#ofertas">Ofertas</a>
+      <a href="#categorias">Categorias</a>
+      <a href="#cupons">Cupons</a>
+      <a href="#vip">Beauty VIP</a>
+    </nav>
+    <button class="menu-btn" onclick="document.body.classList.toggle('menu-open')" aria-label="Abrir menu">☰</button>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">BEAUTY SHOP · CURADORIA DIGITAL</p>
+        <h1>Boas escolhas de beleza, encontradas por você.</h1>
+        <p class="hero-copy">Ofertas, lançamentos, tendências e achados selecionados manualmente. Você escolhe o produto; a Beauty Shop leva você até onde comprar.</p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="#ofertas">Ver ofertas</a>
+          <a class="btn btn-light" href="#vip">Entrar no Beauty VIP</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <span>SELEÇÃO DO DIA</span>
+        <strong id="heroCount">—</strong>
+        <small>produtos selecionados</small>
+      </div>
+    </section>
+
+    <section class="ticker">
+      <span>ACHADOS</span><span>OFERTAS</span><span>CUPONS</span><span>LANÇAMENTOS</span><span>TENDÊNCIAS</span>
+    </section>
+
+    <section class="section" id="ofertas">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">CURADORIA</p>
+          <h2>Ofertas selecionadas</h2>
+        </div>
+        <div class="controls">
+          <input id="search" type="search" placeholder="Buscar produto..." aria-label="Buscar produto">
+          <select id="platformFilter" aria-label="Filtrar por plataforma">
+            <option value="">Todas as plataformas</option>
+          </select>
+        </div>
+      </div>
+      <div id="products" class="product-grid"></div>
+      <div id="empty" class="empty" hidden>Nenhum produto encontrado com esses filtros.</div>
+    </section>
+
+    <section class="section soft" id="categorias">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">SHOP BY CATEGORY</p>
+          <h2>Encontre por categoria</h2>
+        </div>
+      </div>
+      <div id="categories" class="category-grid"></div>
+    </section>
+
+    <section class="section" id="cupons">
+      <div class="editorial">
+        <div>
+          <p class="eyebrow">BEAUTY DEALS</p>
+          <h2>Cupons e oportunidades</h2>
+          <p>Uma área para reunir cupons, campanhas e condições especiais que você encontrar nas plataformas.</p>
+        </div>
+        <div class="deal-box">
+          <strong>Quer receber os próximos achados?</strong>
+          <p>Entre para o Beauty VIP e receba seleções diretamente no seu e-mail.</p>
+          <a class="btn btn-dark" href="#vip">Quero receber</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section vip" id="vip">
+      <div class="vip-inner">
+        <p class="eyebrow">BEAUTY VIP</p>
+        <h2>Receba as melhores seleções.</h2>
+        <p>Cadastre seu nome e e-mail para receber novidades, achados e ofertas selecionadas da Beauty Shop.</p>
+        <form id="leadForm" class="lead-form" method="POST" target="leadFrame">
+          <input name="nome" required placeholder="Seu nome">
+          <input name="email" type="email" required placeholder="Seu melhor e-mail">
+          <input type="hidden" name="origem" value="site-beauty-shop">
+          <button class="btn btn-dark" type="submit">Entrar no Beauty VIP</button>
+        </form>
+        <p id="leadMessage" class="form-message" aria-live="polite"></p>
+        <iframe name="leadFrame" id="leadFrame" class="hidden-frame" title="Cadastro"></iframe>
+        <small>Ao se cadastrar, você concorda em receber comunicações da Beauty Shop. Você pode sair quando quiser.</small>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>BEAUTY SHOP</strong>
+      <p>Curadoria digital de beleza.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#ofertas">Ofertas</a>
+      <a href="#categorias">Categorias</a>
+      <a href="#vip">Beauty VIP</a>
+      <a id="whatsappFooter" href="#" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <p class="disclosure">A Beauty Shop pode receber comissão por compras realizadas através de determinados links de afiliado, sem custo adicional ao cliente. Preços, descontos, estoque e condições podem mudar na plataforma de origem.</p>
+  </footer>
+
+  <div id="productModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" onclick="closeProduct()"></div>
+    <article class="modal-card">
+      <button class="modal-close" onclick="closeProduct()" aria-label="Fechar">×</button>
+      <div id="modalImage" class="modal-image"></div>
+      <div class="modal-content">
+        <p id="modalPlatform" class="eyebrow"></p>
+        <h2 id="modalName"></h2>
+        <p id="modalDescription"></p>
+        <div class="price-line">
+          <span id="modalOldPrice" class="old-price"></span>
+          <strong id="modalPrice"></strong>
+          <span id="modalDiscount" class="discount"></span>
+        </div>
+        <p id="modalNote" class="product-note"></p>
+        <a id="modalBuy" class="btn btn-dark wide" href="#" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+        <a id="modalWhatsApp" class="btn btn-light wide" href="#" target="_blank" rel="noopener">Falar pelo WhatsApp</a>
+      </div>
+    </article>
+  </div>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
